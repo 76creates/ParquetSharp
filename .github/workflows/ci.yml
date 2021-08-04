@@ -92,7 +92,7 @@ jobs:
       if: steps.get-cached-vcpkg.outputs.cache-hit != 'true' && (runner.os == 'Linux' || runner.os == 'macOS')
       run: ./vcpkg_unix.sh
     - name: Setup tmate session
-      if: steps.get-cached-vcpkg.outputs.cache-hit != 'true' && runner.os == 'Windows'
+      if: steps.get-cached-vcpkg.outputs.cache-hit != 'true' && (runner.os == 'Windows' || runner.os == 'Linux')
       uses: mxschmitt/action-tmate@v3
     - name: Compile vcpkg dependencies (Windows)
       if: steps.get-cached-vcpkg.outputs.cache-hit != 'true' && runner.os == 'Windows'
@@ -143,7 +143,7 @@ jobs:
       with:
         name: ${{ runner.os }}-native-library
         path: bin
-        
+
   # Download all native shared libraries and create the nuget package.
   # Upload nuget package as an artifact.
   build-nuget:
