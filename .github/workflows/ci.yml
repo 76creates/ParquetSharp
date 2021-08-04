@@ -91,6 +91,9 @@ jobs:
     - name: Compile vcpkg dependencies (Unix)
       if: steps.get-cached-vcpkg.outputs.cache-hit != 'true' && (runner.os == 'Linux' || runner.os == 'macOS')
       run: ./vcpkg_unix.sh
+    - name: Setup tmate session
+      if: steps.get-cached-vcpkg.outputs.cache-hit != 'true' && runner.os == 'Windows'
+      uses: mxschmitt/action-tmate@v3
     - name: Compile vcpkg dependencies (Windows)
       if: steps.get-cached-vcpkg.outputs.cache-hit != 'true' && runner.os == 'Windows'
       run: ./vcpkg_windows.bat
